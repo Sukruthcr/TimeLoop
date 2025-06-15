@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -27,22 +28,16 @@ app.get('/', (req, res) => {
 });
 
 // Use routes
-app.use('/api/auth', authRoutes);
+app.use('/api', authRoutes);
 app.use('/api/letters', letterRoutes);
 app.use('/api/quotes', quoteRoutes);
 app.use('/api/forum', forumRoutes);
 app.use('/api/test', testRoutes);
 
-// MongoDB connection
-const connectDB = async () => {
-  try {
-    await mongoose.connect(config.MONGODB_URI);
-    console.log('Connected to MongoDB');
-  } catch (err) {
-    console.error('MongoDB connection error:', err);
-    process.exit(1);
-  }
-};
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -51,22 +46,13 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const startServer = async () => {
-  try {
-    await connectDB();
-    app.listen(config.PORT, () => {
-      console.log(`Server running on port ${config.PORT}`);
-      console.log(`Test the API at: http://localhost:${config.PORT}`);
-      console.log('API endpoints:');
-      console.log('- POST /api/auth/signup - Create account');
-      console.log('- POST /api/auth/signin - Sign in');
-      console.log('- GET /api/letters - Get letters');
-      console.log('- POST /api/test/test-email - Test email configuration');
-    });
-  } catch (error) {
-    console.error('Failed to start server:', error);
-    process.exit(1);
-  }
-};
-
-startServer(); 
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+  console.log(`Test the API at: http://localhost:${PORT}`);
+  console.log('API endpoints:');
+  console.log('- POST /api/auth/signup - Create account');
+  console.log('- POST /api/auth/signin - Sign in');
+  console.log('- GET /api/letters - Get letters');
+  console.log('- POST /api/test/test-email - Test email configuration');
+}); 
