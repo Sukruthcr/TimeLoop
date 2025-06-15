@@ -6,7 +6,7 @@
 [build.environment]
   NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
-  VITE_API_URL = "https://your-backend-url.com"
+  VITE_API_URL = "http://localhost:3000"
 
 [[redirects]]
   from = "/*"
