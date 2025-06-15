@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "build": "cd client && rm -rf node_modules package-lock.json && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
