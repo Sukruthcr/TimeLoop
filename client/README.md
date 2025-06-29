@@ -1,3 +1,35 @@
+# TimeLoop (Letters to Future Self)
+
+## 🚀 Vercel Deployment Guide
+
+This project is now ready for **fullstack deployment on Vercel** (frontend + backend API in one site).
+
+### 1. Push to GitHub
+Make sure all your changes are committed and pushed to your GitHub repository.
+
+### 2. Deploy on Vercel
+- Go to [vercel.com](https://vercel.com/) and sign up (use GitHub login).
+- Click **"New Project"** and import your repo.
+- Vercel will auto-detect your React app and the `api/` folder for serverless functions.
+- Click **"Deploy"**.
+- After a minute, you'll get a live URL (e.g., `yourproject.vercel.app`).
+
+### 3. Set Environment Variables
+In your Vercel dashboard, go to your project → Settings → Environment Variables and add:
+- `MONGODB_URI` — your MongoDB connection string (e.g., `mongodb+srv://...` or `mongodb://localhost:27017/future_letters`)
+- `JWT_SECRET` — a random string for JWT signing
+- `EMAIL_USER` — your Gmail address (for email sending)
+- `EMAIL_PASS` — your Gmail app password
+
+### 4. API Usage
+- All API endpoints are now available at `/api/...` (e.g., `/api/auth`, `/api/letters`, `/api/forum`, `/api/quotes`).
+- The frontend is already configured to use these endpoints.
+
+### 5. File Uploads
+- File uploads are not supported in this Vercel serverless setup. For attachments, use a third-party service (like Cloudinary or S3) and update the code accordingly.
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

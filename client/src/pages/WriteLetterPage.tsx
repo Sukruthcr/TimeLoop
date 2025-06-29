@@ -64,7 +64,7 @@ export default function WriteLetterPage() {
       }
 
       try {
-        await axios.post('http://localhost:5001/api/letters', values, {
+        await axios.post('/api/letters', values, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'

@@ -22,7 +22,7 @@ export default function PublicLettersPage() {
     const fetchPublicLetters = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5001/api/letters/public', {
+        const response = await axios.get('/api/letters/public', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
