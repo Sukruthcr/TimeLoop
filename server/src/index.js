@@ -11,18 +11,31 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173', // Your local frontend
   'https://time-loop-whyr.vercel.app', // Your main production frontend URL
-  'https://time-loop-whyr-ev6ex2bwr-sukruthcrs-projects.vercel.app' // Vercel preview URL
+  /^https:\/\/time-loop-whyr-.*\.vercel\.app$/ // Regex to match all Vercel preview URLs
 ];
 
 const corsOptions = {
   origin: (origin, callback) => {
+    console.log('CORS Request from Origin:', origin);
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
+
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      if (typeof allowedOrigin === 'string') {
+        return allowedOrigin === origin;
+      }
+      if (allowedOrigin instanceof RegExp) {
+        return allowedOrigin.test(origin);
+      }
+      return false;
+    });
+
+    if (isAllowed) {
+      callback(null, true);
+    } else {
       const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
+      callback(new Error(msg), false);
     }
-    return callback(null, true);
   },
   credentials: true
 };
