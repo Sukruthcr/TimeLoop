@@ -8,7 +8,6 @@ const config = require('./config');
 const app = express();
 
 // --- Simplified CORS Configuration ---
-// This allows requests from ANY origin.
 app.use(cors({ credentials: true, origin: true }));
 // ------------------------------------
 
