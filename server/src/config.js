@@ -10,3 +10,4 @@ module.exports = {
   },
   NODE_ENV: process.env.NODE_ENV || 'development'
 }; 
+console.log('Connecting to MongoDB:', process.env.MONGODB_URI);

@@ -27,11 +27,17 @@ export default function PublicLettersPage() {
             'Authorization': `Bearer ${token}`
           }
         });
-        setLetters(response.data);
+        if (Array.isArray(response.data)) {
+          setLetters(response.data);
+        } else {
+          console.error('Unexpected response for public letters:', response.data);
+          setLetters([]);
+        }
         setError(null);
       } catch (err) {
         console.error('Failed to fetch public letters:', err);
         setError('Failed to load public letters. Please try again later.');
+        setLetters([]);
       } finally {
         setLoading(false);
       }

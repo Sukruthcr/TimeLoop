@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../lib/axios';
 
 interface User {
   id: string;
@@ -18,7 +18,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const API_URL = '/api/auth';
+const API_URL = '/auth';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       // Fetch user data using the token
-      axios.get(`${API_URL}/me`, {
+      axiosInstance.get(`${API_URL}/me`, {
         headers: {
           'Authorization': `Bearer ${storedToken}`
         }
@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signIn = async (credentials: { email: string; password: string }) => {
-    const response = await axios.post(`${API_URL}/signin`, credentials);
+    const response = await axiosInstance.post(`${API_URL}/signin`, credentials);
     const { token, user } = response.data;
     localStorage.setItem('token', token);
     setToken(token);
@@ -58,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signUp = async (data: { username: string; email: string; password: string }) => {
-    const response = await axios.post(`${API_URL}/signup`, data);
+    const response = await axiosInstance.post(`${API_URL}/signup`, data);
     const { token, user } = response.data;
     localStorage.setItem('token', token);
     setToken(token);

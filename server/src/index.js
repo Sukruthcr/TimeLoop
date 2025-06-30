@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 // Use routes
-app.use('/api', authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/letters', letterRoutes);
 app.use('/api/quotes', quoteRoutes);
 app.use('/api/forum', forumRoutes);
