@@ -10,7 +10,8 @@ const app = express();
 // --- CORS Configuration for Deployment ---
 const allowedOrigins = [
   'http://localhost:5173', // Your local frontend
-  'https://time-loop-whyr.vercel.app' // Your deployed frontend URL
+  'https://time-loop-whyr.vercel.app', // Your main production frontend URL
+  'https://time-loop-whyr-ev6ex2bwr-sukruthcrs-projects.vercel.app' // Vercel preview URL
 ];
 
 const corsOptions = {
