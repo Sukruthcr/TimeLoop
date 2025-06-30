@@ -7,11 +7,33 @@ const config = require('./config');
 
 const app = express();
 
+// --- CORS Configuration for Deployment ---
+const allowedOrigins = [
+  'http://localhost:5173', // Your local frontend
+  'https://time-loop-whyr.vercel.app' // Your deployed frontend URL
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+// -----------------------------------------
+
 // Make JWT_SECRET available globally
 process.env.JWT_SECRET = config.JWT_SECRET;
 
 // Middleware
-app.use(cors());
+// app.use(cors()); // This is now replaced by the configuration above
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
