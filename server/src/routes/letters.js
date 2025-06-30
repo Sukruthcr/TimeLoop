@@ -49,6 +49,7 @@ const authenticateToken = (req, res, next) => {
 
 // Create a new letter with attachments
 router.post('/', authenticateToken, upload.array('attachments', 5), async (req, res) => {
+  console.log('Received POST /api/letters request');
   try {
     const { subject, message, deliveryDate, isPublic, email } = req.body;
     
