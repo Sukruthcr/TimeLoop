@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useAuth } from '../contexts/AuthContext';
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 
 interface LetterFormData {
   subject: string;
@@ -64,7 +64,7 @@ export default function WriteLetterPage() {
       }
 
       try {
-        await axios.post('/api/letters', values, {
+        await api.post('/letters', values, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { useAuth } from '../contexts/AuthContext';
 
 interface Letter {
@@ -22,7 +22,7 @@ export default function PublicLettersPage() {
     const fetchPublicLetters = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/letters/public', {
+        const response = await api.get('/letters/public', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
